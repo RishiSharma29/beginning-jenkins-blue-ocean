@@ -1,10 +1,12 @@
 pipeline {
   agent none
+  tools { 
+        maven 'Maven 3.8.1' 
+        }
   stages {
     stage('Build & Test') {
       agent any
       steps {
-        tool 'Maven'
         sh 'mvn -Dmaven.test.failure.ignore clean package'
         stash(name: 'build-test-artifacts', includes: '**/ target/surefire-reports/TEST-*.xml,target/*.jar')
       }
